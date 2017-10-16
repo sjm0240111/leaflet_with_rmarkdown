@@ -1,0 +1,36 @@
+---
+title: "Leaflet in R markdown"
+author: "John Lee"
+date: "Oct 16, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+### load packages
+To run **leaflet**, you need install and load leaflet.
+```{r}
+library(leaflet)
+library(RColorBrewer)
+```
+
+## A map of Mt.Siguniang
+Mt.Siguniang is very famous in China, which in Chinese is four sisters. It's the paradise for outdoor activities. The dataframe `siguniang` contains the latitude and longitude of Siguniang Mountains.
+```{r}
+siguniang <- data.frame(
+    lat = c(31.052857,31.067119,31.076483,31.104758),
+    long = c(102.906461, 102.909869,102.907283,102.905606),
+    col = brewer.pal(4,"Set1"),
+    popup = c("Eldest Sister","Second Elder Sister","Third Elder Sister","Little Sister")
+)
+```
+
+###Render the map
+```{r}
+siguniang %>% leaflet() %>%
+    addTiles() %>%
+    addCircleMarkers(popup=siguniang$popup,color=siguniang$col)
+```
+
+For more information about Mt.Siguniang, please google it!
